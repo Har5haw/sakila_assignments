@@ -15,8 +15,6 @@ WHERE
     WHERE
       name = 'Documentary'
   );
-
-
   /* 2nd solution Find out the number of sci-fi movies rented by the store managed by Jon Stephens. */
 SELECT
   COUNT(title) AS number_of_sci_fi_movies_rented_by_the_store_managed_by_Jon_Stephen
@@ -38,8 +36,6 @@ WHERE
       staff.first_name = 'Jon'
       AND staff.last_name = 'Stephens'
   );
-
-
   /* 3rd solution Find out the total sales FROM Animation movies. */
 SELECT
   total_sales AS total_sales_from_Animation_movies
@@ -47,8 +43,6 @@ FROM
   sales_by_film_category
 WHERE
   sales_by_film_category.category = 'Animation';
-
-
   /* 4th solution Find out the top 3 rented category of movies by “PATRICIA JOHNSON”. */
 SELECT
   category.name
@@ -75,16 +69,17 @@ ORDER BY
   count(category.name) DESC
 LIMIT
   3;
-
-  
   /* 5th solution Find out the number of R rated movies rented by “SUSAN WILSON” */
 SELECT
-  count(*) AS number_of_R_rated_movies_rented_by_SUSAN_WILSON
+  COUNT(*) as number_of_R_rated_movies_rented_by_SUSAN_WILSON
 FROM
-  film
-  INNER JOIN film_actor ON film.film_id = film_actor.film_id
-  INNER JOIN actor ON actor.actor_id = film_actor.actor_id
+  film_list f,
+  rental r,
+  inventory i,
+  customer_list c
 WHERE
-  actor.first_name = 'SUSAN'
-  AND actor.last_name = 'WILSON'
-  AND film.rating = 'R';
+  f.rating = 'R'
+  AND f.FID = i.film_id
+  AND i.inventory_id = r.inventory_id
+  AND r.customer_id = c.ID
+  AND c.name = 'SUSAN WILSON';
